@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#This repo contains most of the code that I have worked on for uploading files to firebase and using firebase auth
+The file storage methods are in firebaseStorageMethods.js and the auth functions are contained in firebaseConfig.js 
 
 ## Available Scripts
 
