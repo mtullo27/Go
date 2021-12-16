@@ -11,10 +11,18 @@ export const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: "select_account" });
 
+
 //custom sign in method using google sign in provider 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (e) => {
   try {
     await auth.signInWithPopup(provider).then((props) => {
+      const session = window.localStorage;
+      session.setItem('userID', props.user.uid)
+      firebase.auth().currentUser.getIdToken(true).then(function (token){
+        document.cookie = '__session=' + props.user.uid + ';max-age=3600';
+      }).catch((err) => {
+        console.log(err);
+      })
       getGIDUser(props.user.uid)
         .then((response) => {
           //create a new user if the do not exist in the user table
@@ -130,6 +138,9 @@ export const giveAuthorization = async (ApplicationObj) =>{
 export const getAppByName = async (Application) => {
   const res = await axios.get(`http://localhost:5000/sql/${Application}`);
   return res;
+}
+
+export const createCookie = async (value) =>{
 }
 
 export default firebase;
